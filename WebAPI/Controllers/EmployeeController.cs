@@ -32,11 +32,76 @@ namespace WebAPI.Controllers
         //    }
         //}
         [HttpGet("getEmployeeDetailsAsync")]
-        public async Task<IEnumerable<EmployeeDetails>> GetEmployeeDetailsAsync(string userName)
+        public async Task<List<EmployeeDetails>> GetEmployeeDetailsAsync(string userName)
         {
             try
             {
                 return await _employeeService.GetEmployeeDetailsAsync(userName);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpGet("getEmployeeAddressDetailsAsync")]
+        public async Task<List<EmployeeAddress>> GetEmployeeAddressDetailsAsync(int empID)
+        {
+            try
+            {
+                return await _employeeService.GetEmployeeAddressDetailsAsync(empID);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpGet("getEmployeeEduDetailsAsync")]
+        public async Task<List<EmployeeEducational>> GetEmployeeEduDetailsAsync(int empID)
+        {
+            try
+            {
+                return await _employeeService.GetEmployeeEduDetailsAsync(empID);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpGet("getEmployeeExpDetailsAsync")]
+        public async Task<List<EmployeeExperience>> GetEmployeeExpDetailsAsync(int empID)
+        {
+            try
+            {
+                return await _employeeService.GetEmployeeExpDetailsAsync(empID);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpGet("getEmployeeNationalDetailsAsync")]
+        public async Task<List<EmployeeNational>> GetEmployeeNationalDetailsAsync(int empID)
+        {
+            try
+            {
+                return await _employeeService.GetEmployeeNationalDetailsAsync(empID);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpGet("getEmployeeProjectDetailsAsync")]
+        public async Task<List<EmployeeProjectDetails>> GetEmployeeProjectDetailsAsync(int empID)
+        {
+            try
+            {
+                return await _employeeService.GetEmployeeProjectDetailsAsync(empID);
             }
             catch (Exception)
             {
