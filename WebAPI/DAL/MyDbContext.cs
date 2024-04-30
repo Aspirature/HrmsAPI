@@ -10,5 +10,6 @@ namespace WebAPI.DAL
         { 
         }
         public DbSet<User> TBL_USER { get; set; }
+        public DbSet<EmployeeDetails> EmployeeDetails { get; set; }
     }
 }
