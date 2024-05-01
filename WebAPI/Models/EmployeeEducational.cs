@@ -11,7 +11,7 @@ namespace WebAPI.Models
         public string COURSENAME { get; set; }
         public string DATEOFJOINED { get; set; }
         public string DATEOFPASSEDOUT { get; set; }
-        public decimal PERCENTAGE { get; set; }
+        public double PERCENTAGE { get; set; }
         public int EMPLOYEEID { get; set; }
 			
     }

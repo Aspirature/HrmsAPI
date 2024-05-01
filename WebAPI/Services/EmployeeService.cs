@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
 using WebAPI.DAL;
+using WebAPI.Interfaces;
 using WebAPI.Models;
 
 namespace WebAPI.Services
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private readonly MyDbContext _myDbContext;
         public EmployeeService(MyDbContext myDbContext) 
@@ -30,10 +31,10 @@ namespace WebAPI.Services
         {
             try
             {
-                //return await (from ad in _myDbContext.EmployeeAddress
-                //              join emp in _myDbContext.EmployeeDetails on ad.EMPLOYEEID equals emp.EMPLOYEEID where ad.EMPLOYEEID == empID select ad).ToListAsync();
-               
-                return await _myDbContext.EmployeeAddress.Where(x => x.EMPLOYEEID == empID).ToListAsync();
+                var param = new SqlParameter("@empID", empID);
+                var empAddDetails = await Task.Run(() => _myDbContext.EmployeeAddressDetails.FromSqlRaw(@"exec usp_GetEmpAddressDetails @empID", param).ToListAsync());
+                return empAddDetails;
+                // return await _myDbContext.EmployeeAddressDetails.Where(x => x.EMPLOYEEID == empID).ToListAsync();
             }
             catch (Exception)
             {
@@ -44,7 +45,7 @@ namespace WebAPI.Services
         {
             try
             {
-                return await _myDbContext.EmployeeEducational.Where(x => x.EMPLOYEEID == empID).ToListAsync();
+                return await _myDbContext.EmployeeEducationalDetails.Where(x => x.EMPLOYEEID == empID).ToListAsync();
             }
             catch (Exception)
             {
@@ -55,7 +56,7 @@ namespace WebAPI.Services
         {
             try
             {
-                return await _myDbContext.EmployeeExperience.Where(x => x.EMPLOYEEID == empID).ToListAsync();
+                return await _myDbContext.EmployeeExperienceDetails.Where(x => x.EMPLOYEEID == empID).ToListAsync();
             }
             catch (Exception)
             {
@@ -66,7 +67,7 @@ namespace WebAPI.Services
         {
             try
             {
-                return await _myDbContext.EmployeeNational.Where(x => x.EMPLOYEEID == empID).ToListAsync();
+                return await _myDbContext.EmployeeNationalDetails.Where(x => x.EMPLOYEEID == empID).ToListAsync();
             }
             catch (Exception)
             {
