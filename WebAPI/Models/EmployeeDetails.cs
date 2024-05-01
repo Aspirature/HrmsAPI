@@ -12,9 +12,9 @@ namespace WebAPI.Models
         public string FIRSTNAME { get; set; }
         public string LASTNAME { get; set; }
         public int AGE { get; set; }
-        public int DATEOFBIRTH { get; set; }
-        public int GENDER { get; set; }
-        public int MATERIALSTATUS { get; set; }
+        public string DATEOFBIRTH { get; set; }
+        public string GENDER { get; set; }
+        public string MATERIALSTATUS { get; set; }
         																									
     }
 }

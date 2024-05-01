@@ -11,8 +11,8 @@ namespace WebAPI.Models
         public string DESIGNATION { get; set; }
         public string STARTDATE { get; set; }
         public string ENDDATE { get; set; }
-        public decimal TOTALYEARSEXP { get; set; }
-        public decimal LASTDRAWNCTS { get; set; }
+        public double TOTALYEARSEXP { get; set; }
+        public double LASTDRAWNCTS { get; set; }
         public int EMPLOYEEID { get; set; }
 			
     }

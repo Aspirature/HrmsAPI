@@ -19,8 +19,8 @@ namespace WebAPI.Models
         public int COUNTRYID { get; set; }
         public int STATEID { get; set; }
         public int DISTRICTID { get; set; }
-        public string COUNTRYNAME { get; set; }
-        public string STATENAME { get; set; }
+        public string COUNTRY { get; set; }
+        public string STATE { get; set; }
         public string DISTRICTNAME { get; set; }
 
 
