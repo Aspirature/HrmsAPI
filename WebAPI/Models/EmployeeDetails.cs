@@ -16,7 +16,11 @@ namespace WebAPI.Models
         public string GENDER { get; set; }
         public string MATERIALSTATUS { get; set; }
         public int USERID { get; set; }
-        public int RoleId { get; set; }
+        public int RoleId { get; set; }        
+        public string Designation { get; set; }
+        public string Department { get; set; }
+        public int HomeManagerId { get; set; }
+
 
     }
 }
