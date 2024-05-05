@@ -23,5 +23,8 @@ namespace WebAPI.DAL
         public DbSet<Country> CountryDetails { get; set; }
         public DbSet<State> StateDetails { get; set; }
         public DbSet<District> DistrictDetails { get; set; }
+        public DbSet<MasterLeaveTypes> MasterLeaveTypes { get; set; }
+        public DbSet<EmployeeLeavesMaster> EmployeeLeavesMaster { get; set; }
+        public DbSet<EmployeeLeaveDetails> EmployeeLeaveDetails { get; set; }
     }
 }

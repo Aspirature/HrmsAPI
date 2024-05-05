@@ -102,5 +102,17 @@ namespace WebAPI.Controllers
                 throw new Exception($"Controller level. {e.Message}", e);
             }
         }
+        [HttpGet("getMasterLeavesTypesAsync")]
+        public async Task<List<MasterLeaveTypes>> GetMasterLeavesTypesAsync()
+        {
+            try
+            {
+                return await _masterService.GetMasterLeavesTypesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Controller level. {e.Message}", e);
+            }
+        }
     }
 }

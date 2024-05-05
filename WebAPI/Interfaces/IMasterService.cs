@@ -12,6 +12,6 @@ namespace WebAPI.Interfaces
         public Task<List<District>> GeDistrictListAsync();
         public Task<List<State>> GetStateListByCountryIdAsync(int countryId);
         public Task<List<District>> GetDistrictListByStateIdAsync(int stateId);
-
+        public Task<List<MasterLeaveTypes>> GetMasterLeavesTypesAsync();
     }
 }
