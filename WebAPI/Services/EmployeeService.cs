@@ -270,6 +270,31 @@ namespace WebAPI.Services
                 throw new Exception($"service level. {e.Message}", e);
             }
         }
+        public async Task<List<EmployeeLeavesMaster>> GetEmployeeLeavesMasterAsync(int empID)
+        {
+            try
+            {
+                return await _myDbContext.EmployeeLeavesMaster.Where(x => x.EMPLOYEEID == empID).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+        public async Task<int> AddEmployeeLeaveDetailsAsync(EmployeeLeaveDetails employeeLeaveDetails)
+        {
+            int id;
+            try
+            {
+                _myDbContext.EmployeeLeaveDetails.Add(employeeLeaveDetails);
+                await _myDbContext.SaveChangesAsync();
+                return id = employeeLeaveDetails.EmployeeLeaveDetailsId;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
         #endregion
     }
 }

@@ -17,21 +17,7 @@ namespace WebAPI.Controllers
         {
             _mDbContext = myDbContext;
             _employeeService = employeeService;
-        }
-
-        //[HttpGet("getEmployeeDetailsAsync")]
-        //public async Task<List<EmployeeDetails>> GetEmployeeDetailsAsync(string userName)
-        //{
-        //    try
-        //    {
-        //        return await _employeeService.GetEmployeeDetailsAsync(userName);
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
+        }        
         [HttpGet("getEmployeeDetailsAsync")]
         public async Task<List<EmployeeDetails>> GetEmployeeDetailsAsync(int userId)
         {
@@ -233,7 +219,31 @@ namespace WebAPI.Controllers
                 throw new Exception($"Controller level. {e.Message}", e);
             }
         }
-
+        [HttpGet("getEmployeeLeavesMasterAsync")]
+        public async Task<List<EmployeeLeavesMaster>> GetEmployeeLeavesMasterAsync(int empId)
+        {
+            try
+            {
+                return await _employeeService.GetEmployeeLeavesMasterAsync(empId);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Controller level. {e.Message}", e);
+            }
+        }
+        [HttpPost("addEmployeeLeaveDetailsAsync")]
+        public async Task<IActionResult> AddEmployeeLeaveDetailsAsync(EmployeeLeaveDetails employeeLeaveDetails)
+        {
+            try
+            {
+                var responce = await _employeeService.AddEmployeeLeaveDetailsAsync(employeeLeaveDetails);
+                return Ok(responce);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Controller level. {e.Message}", e);
+            }
+        }
         #endregion
     }
 }
