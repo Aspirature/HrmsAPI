@@ -9,9 +9,11 @@ namespace WebAPI.Models
         [Key]
         public int EMPLOYEEEDUCATIONALID { get; set; }
         public string COURSENAME { get; set; }
+        public string INSTITUTIONNAME { get; set; }
         public string DATEOFJOINED { get; set; }
         public string DATEOFPASSEDOUT { get; set; }
         public double PERCENTAGE { get; set; }
+        public string INSTITUTIONADDRESS { get; set; }
         public int EMPLOYEEID { get; set; }
 			
     }

@@ -5,7 +5,7 @@ using System.Net;
 
 namespace WebAPI.Models
 {
-    public class EmployeeAddress
+    public class EmployeeAddressModel
     {
 
         [Key]
@@ -22,6 +22,7 @@ namespace WebAPI.Models
         public string COUNTRY { get; set; }
         public string STATE { get; set; }
         public string DISTRICTNAME { get; set; }
+
 
     }
 }
