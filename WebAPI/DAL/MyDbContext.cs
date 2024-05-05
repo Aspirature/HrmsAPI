@@ -20,5 +20,8 @@ namespace WebAPI.DAL
         public DbSet<RoleModel> Roles { get; set; }
         public DbSet<EmployeeAddress> EmployeeAddressDetails { get; set; }
         public DbSet<EmployeePersonalDetails> EmployeePersonalDetails { get; set; }
+        public DbSet<Country> CountryDetails { get; set; }
+        public DbSet<State> StateDetails { get; set; }
+        public DbSet<District> DistrictDetails { get; set; }
     }
 }
