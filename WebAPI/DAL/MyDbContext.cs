@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Models;
+using WebAPI.Models.MasterModels;
 
 namespace WebAPI.DAL
 {
@@ -11,10 +12,13 @@ namespace WebAPI.DAL
         }
         public DbSet<User> TBL_USER { get; set; }
         public DbSet<EmployeeDetails> EmployeeDetails { get; set; }
-        public DbSet<EmployeeAddress> EmployeeAddressDetails { get; set; }
+        public DbSet<EmployeeAddressModel> EmployeeAddressDetailsModel { get; set; }
         public DbSet<EmployeeEducational> EmployeeEducationalDetails { get; set; }
         public DbSet<EmployeeExperience> EmployeeExperienceDetails { get; set; }
         public DbSet<EmployeeNational> EmployeeNationalDetails { get; set; }
         public DbSet<EmployeeProjectDetails> EmployeeProjectDetails { get; set; }
+        public DbSet<RoleModel> Roles { get; set; }
+        public DbSet<EmployeeAddress> EmployeeAddressDetails { get; set; }
+        public DbSet<EmployeePersonalDetails> EmployeePersonalDetails { get; set; }
     }
 }

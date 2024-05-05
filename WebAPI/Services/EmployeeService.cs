@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
+using Microsoft.VisualBasic;
+using Microsoft.Data.SqlClient;
 using WebAPI.DAL;
 using WebAPI.Interfaces;
 using WebAPI.Models;
+using WebAPI.Models.MasterModels;
 
 namespace WebAPI.Services
 {
@@ -13,11 +15,11 @@ namespace WebAPI.Services
         {
             _myDbContext = myDbContext;
         }
-        public async Task<List<EmployeeDetails>> GetEmployeeDetailsAsync(string userName)
+        public async Task<List<EmployeeDetails>> GetEmployeeDetailsAsync(int userId)
         {
             try
             {
-                return await _myDbContext.EmployeeDetails.Where(x => x.USERNAME == userName).ToListAsync();
+                return await _myDbContext.EmployeeDetails.Where(x => x.USERID == userId).ToListAsync();
                 //var param = new SqlParameter("@userName", userName);
                 //var empDetails = await Task.Run(() => _myDbContext.EmployeeDetails.FromSqlRaw(@"exec usp_Get_EmployeeDataByUserName @userName", param).ToListAsync());
                 //return empDetails;
@@ -27,14 +29,17 @@ namespace WebAPI.Services
                 throw;
             }
         }
-        public async Task<List<EmployeeAddress>> GetEmployeeAddressDetailsAsync(int empID)
+        public async Task<IEnumerable<EmployeeAddress>> GetEmployeeAddressDetailsAsync(int empID)
         {
             try
             {
                 var param = new SqlParameter("@empID", empID);
-                var empAddDetails = await Task.Run(() => _myDbContext.EmployeeAddressDetails.FromSqlRaw(@"exec usp_GetEmpAddressDetails @empID", param).ToListAsync());
+                var empAddDetails = await Task.Run(() => _myDbContext.EmployeeAddressDetails.
+                FromSqlRaw(@"exec usp_GetEmpAddressDetails @empID", param).ToListAsync());
                 return empAddDetails;
-                // return await _myDbContext.EmployeeAddressDetails.Where(x => x.EMPLOYEEID == empID).ToListAsync();
+
+                //return await _myDbContext.EmployeeAddressDetails.FromSqlRaw<EmployeeAddress>("exec usp_GetEmpAddressDetails @empID", param).ToListAsync();
+
             }
             catch (Exception)
             {
@@ -85,5 +90,186 @@ namespace WebAPI.Services
                 throw;
             }
         }
+        public async Task<List<RoleModel>> GetRolesListAsync()
+        {
+            try
+            {
+                return await _myDbContext.Roles.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+        public async Task<List<EmployeePersonalDetails>> GetEmployeePersonalDetailsAsync(int empId)
+        {
+            try
+            {
+                return await _myDbContext.EmployeePersonalDetails.Where(x => x.EmployeeId == empId).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+        public async Task<List<RoleModel>> GetRoleByIdAsync(int roleId)
+        {
+            try
+            {
+                return await _myDbContext.Roles.Where(x => x.RoleId == roleId).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+        #region Add Employee Details
+
+        public async Task<int> AddUserAsync(User user)
+        {
+            int id;
+            try
+            {
+                 _myDbContext.TBL_USER.Add(user);
+                  await _myDbContext.SaveChangesAsync();
+                //same id should pass in add employee employee details time
+                  return id = user.USERID;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+        public async Task<int> AddEmployeeAsync(EmployeeDetails employeeDetails)
+        {
+            int id;
+            try
+            {
+                _myDbContext.EmployeeDetails.Add(employeeDetails);
+                await _myDbContext.SaveChangesAsync();               
+                return id = employeeDetails.EMPLOYEEID;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+        public async Task<int> AddEmployeeAddressAsync(List<EmployeeAddress> employeeAddress)
+        {
+            int id;
+            try
+            {
+                foreach (var item in employeeAddress)
+                {
+                    var newRecords = new EmployeeAddress();
+                    newRecords.ADDRESS = item.ADDRESS;
+                    newRecords.ADDRESSLINE1 = item.ADDRESSLINE1;
+                    newRecords.ADDRESSLINE2 = item.ADDRESSLINE2;
+                    newRecords.ADDRESSTYPE = item.ADDRESSTYPE;
+                    newRecords.PINCODE = item.PINCODE;
+                    newRecords.EMPLOYEEID = item.EMPLOYEEID;
+                    newRecords.COUNTRYID = item.COUNTRYID;
+                    newRecords.STATEID = item.STATEID;
+                    newRecords.DISTRICTID = item.DISTRICTID;
+                    _myDbContext.EmployeeAddressDetails.Add(newRecords);
+                }
+                await _myDbContext.SaveChangesAsync();
+                return id = employeeAddress.Count;
+
+                //_myDbContext.EmployeeAddressDetails.Add(employeeAddress);
+                //await _myDbContext.SaveChangesAsync();
+                //return id = employeeAddress.EMPLOYEEADDRESSID;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+        public async Task<int> AddEmployeeEducationAsync(List<EmployeeEducational> employeeEducational)
+        {
+            int id;
+            try
+            {
+                foreach (var item in employeeEducational)
+                {
+                    var newRecords = new EmployeeEducational();
+                    newRecords.COURSENAME = item.COURSENAME;
+                    newRecords.DATEOFJOINED = item.DATEOFJOINED;
+                    newRecords.DATEOFPASSEDOUT = item.DATEOFPASSEDOUT;
+                    newRecords.EMPLOYEEEDUCATIONALID = item.EMPLOYEEEDUCATIONALID;
+                    newRecords.PERCENTAGE = item.PERCENTAGE;
+                    newRecords.INSTITUTIONADDRESS = item.INSTITUTIONADDRESS;
+                    newRecords.EMPLOYEEID = item.EMPLOYEEID;                    
+                    _myDbContext.EmployeeEducationalDetails.Add(newRecords);
+                }
+                await _myDbContext.SaveChangesAsync();
+                return id = employeeEducational.Count;
+
+                //_myDbContext.EmployeeEducationalDetails.Add(employeeEducational);
+                //await _myDbContext.SaveChangesAsync();
+                //return id = employeeEducational.EMPLOYEEEDUCATIONALID;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+        public async Task<int> AddEmployeeExperienceAsync(List<EmployeeExperience> employeeExperience)
+        {
+            int id;
+            try
+            {
+                foreach (var item in employeeExperience)
+                {
+                    var newRecords = new EmployeeExperience();
+                    newRecords.COMPANYNAME = item.COMPANYNAME;
+                    newRecords.DESIGNATION = item.DESIGNATION;
+                    newRecords.STARTDATE = item.STARTDATE;
+                    newRecords.ENDDATE = item.ENDDATE;
+                    newRecords.TOTALYEARSEXP = item.TOTALYEARSEXP;
+                    newRecords.LASTDRAWNCTS = item.LASTDRAWNCTS;
+                    newRecords.EMPLOYEEID = item.EMPLOYEEID;                   
+                    _myDbContext.EmployeeExperienceDetails.Add(newRecords);
+                }
+                await _myDbContext.SaveChangesAsync();
+                return id = employeeExperience.Count;
+                //_myDbContext.EmployeeExperienceDetails.Add(employeeExperience);
+                //await _myDbContext.SaveChangesAsync();
+                //return id = employeeExperience.EMPLOYEEEXPERIENCEID;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+        public async Task<int> AddEmployeeNationalAsync(EmployeeNational employeeNational)
+        {
+            int id;
+            try
+            {
+                _myDbContext.EmployeeNationalDetails.Add(employeeNational);
+                await _myDbContext.SaveChangesAsync();
+                return id = employeeNational.EMPLOYEENATIONALID;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+        public async Task<int> AddEmployeeProjectAsync(EmployeeProjectDetails employeeProject)
+        {
+            int id;
+            try
+            {
+                _myDbContext.EmployeeProjectDetails.Add(employeeProject);
+                await _myDbContext.SaveChangesAsync();
+                return id = employeeProject.EMPLOYEEPROJECTDETAILSID;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+        #endregion
     }
 }
