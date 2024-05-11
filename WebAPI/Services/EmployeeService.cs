@@ -15,11 +15,11 @@ namespace WebAPI.Services
         {
             _myDbContext = myDbContext;
         }
-        public async Task<List<EmployeeDetails>> GetEmployeeDetailsAsync(int userId)
+        public async Task<List<EmployeeDetails>> GetEmployeeDetailsAsync(string userName)
         {
             try
             {
-                return await _myDbContext.EmployeeDetails.Where(x => x.USERID == userId).ToListAsync();
+                return await _myDbContext.EmployeeDetails.Where(x => x.USERNAME == userName).ToListAsync();
                 //var param = new SqlParameter("@userName", userName);
                 //var empDetails = await Task.Run(() => _myDbContext.EmployeeDetails.FromSqlRaw(@"exec usp_Get_EmployeeDataByUserName @userName", param).ToListAsync());
                 //return empDetails;
@@ -89,6 +89,7 @@ namespace WebAPI.Services
             {
                 throw;
             }
+
         }
         public async Task<List<RoleModel>> GetRolesListAsync()
         {
@@ -294,7 +295,18 @@ namespace WebAPI.Services
             {
                 throw new Exception($"service level. {e.Message}", e);
             }
-        }
+        }       
+        public async Task<List<EmployeeLeaveDetails>> GetEmployeeLeaveDetailsAsync(int empID)
+        {
+            try
+            {
+                return await _myDbContext.EmployeeLeaveDetails.Where(x => x.EMPLOYEEID == empID).ToListAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }        
         #endregion
     }
 }
