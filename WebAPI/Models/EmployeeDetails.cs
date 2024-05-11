@@ -15,12 +15,15 @@ namespace WebAPI.Models
         public string DATEOFBIRTH { get; set; }
         public string GENDER { get; set; }
         public string MATERIALSTATUS { get; set; }
+        public string PersonalEmail { get; set; }
+        public string OfficialEmail { get; set; }
         public int USERID { get; set; }
         public int RoleId { get; set; }        
         public string Designation { get; set; }
         public string Department { get; set; }
         public int HomeManagerId { get; set; }
-
+        public int DepartmentId { get; set; }
+        public int DesignationId { get; set; }
 
     }
 }
