@@ -103,6 +103,28 @@ namespace WebAPI.Services
                 throw new Exception($"service level. {e.Message}", e);
             }
         }
-        
+        public async Task<List<MasterDepartments>> GetMasterDepartmentsAsync()
+        {
+            try
+            {
+                return await _myDbContext.MasterDepartments.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+        public async Task<List<MasterDesignations>> GetMasterDesignationsAsync()
+        {
+            try
+            {
+                return await _myDbContext.MasterDesignations.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
+
     }
 }

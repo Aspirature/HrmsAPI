@@ -114,5 +114,30 @@ namespace WebAPI.Controllers
                 throw new Exception($"Controller level. {e.Message}", e);
             }
         }
+        [HttpGet("getMasterDepartmentsAsync")]
+        public async Task<List<MasterDepartments>> GetMasterDepartmentsAsync()
+        {
+            try
+            {
+                return await _masterService.GetMasterDepartmentsAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Controller level. {e.Message}", e);
+            }
+        }
+
+        [HttpGet("getMasterDesignationsAsync")]
+        public async Task<List<MasterDesignations>> GetMasterDesignationsAsync()
+        {
+            try
+            {
+                return await _masterService.GetMasterDesignationsAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Controller level. {e.Message}", e);
+            }
+        }
     }
 }

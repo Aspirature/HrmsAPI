@@ -26,5 +26,7 @@ namespace WebAPI.DAL
         public DbSet<MasterLeaveTypes> MasterLeaveTypes { get; set; }
         public DbSet<EmployeeLeavesMaster> EmployeeLeavesMaster { get; set; }
         public DbSet<EmployeeLeaveDetails> EmployeeLeaveDetails { get; set; }
+        public DbSet<MasterDepartments> MasterDepartments { get; set; }
+        public DbSet<MasterDesignations> MasterDesignations { get; set; }
     }
 }

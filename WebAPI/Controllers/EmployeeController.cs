@@ -126,6 +126,18 @@ namespace WebAPI.Controllers
                 throw new Exception($"Controller level. {e.Message}", e);
             }
         }
+        [HttpGet("GetEmployeeLeaveDetailsAsync")]
+        public async Task<List<EmployeeLeaveDetails>> GetEmployeeLeaveDetailsAsync(int empId)
+        {
+            try
+            {
+                return await _employeeService.GetEmployeeLeaveDetailsAsync(empId);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Controller level. {e.Message}", e);
+            }
+        }
         #region Add Employee Details
 
         [HttpPost("addUserAsync")]

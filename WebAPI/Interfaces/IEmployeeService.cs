@@ -23,6 +23,7 @@ namespace WebAPI.Interfaces
         public Task<int> AddEmployeeProjectAsync(EmployeeProjectDetails employeeProject);
         public Task<List<EmployeeLeavesMaster>> GetEmployeeLeavesMasterAsync(int empID);
         public Task<int> AddEmployeeLeaveDetailsAsync(EmployeeLeaveDetails employeeLeaveDetails);
+        public Task<List<EmployeeLeaveDetails>> GetEmployeeLeaveDetailsAsync(int empID);
 
     }
 }
