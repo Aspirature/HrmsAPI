@@ -19,11 +19,11 @@ namespace WebAPI.Controllers
             _employeeService = employeeService;
         }        
         [HttpGet("getEmployeeDetailsAsync")]
-        public async Task<List<EmployeeDetails>> GetEmployeeDetailsAsync(int userId)
+        public async Task<List<EmployeeDetails>> GetEmployeeDetailsAsync(string userName)
         {
             try
             {
-                return await _employeeService.GetEmployeeDetailsAsync(userId);
+                return await _employeeService.GetEmployeeDetailsAsync(userName);
             }
             catch (Exception e)
             {

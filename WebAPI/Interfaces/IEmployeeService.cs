@@ -5,7 +5,7 @@ namespace WebAPI.Interfaces
 {
     public interface IEmployeeService
     {        
-        public Task<List<EmployeeDetails>> GetEmployeeDetailsAsync(int userId);
+        public Task<List<EmployeeDetails>> GetEmployeeDetailsAsync(string userName);
         public Task<IEnumerable<EmployeeAddress>> GetEmployeeAddressDetailsAsync(int empID);
         public Task<List<EmployeeEducational>> GetEmployeeEduDetailsAsync(int empID);
         public Task<List<EmployeeExperience>> GetEmployeeExpDetailsAsync(int empID);
