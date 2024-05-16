@@ -218,6 +218,19 @@ namespace WebAPI.Controllers
                 throw new Exception($"Controller level. {e.Message}", e);
             }
         }
+        [HttpPost("addEmployeePersonalAsync")]
+        public async Task<IActionResult> AddEmployeePersonalAsync(EmployeePersonalDetails employeePersonalDetails)
+        {
+            try
+            {
+                var responce = await _employeeService.AddEmployeePersonalAsync(employeePersonalDetails);
+                return Ok(responce);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Controller level. {e.Message}", e);
+            }
+        }
         [HttpPost("addEmployeeProjectAsync")]
         public async Task<IActionResult> AddEmployeeProjectAsync(EmployeeProjectDetails employeeProject)
         {

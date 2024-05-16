@@ -271,6 +271,20 @@ namespace WebAPI.Services
                 throw new Exception($"service level. {e.Message}", e);
             }
         }
+        public async Task<int> AddEmployeePersonalAsync(EmployeePersonalDetails employeePersonalDetails)
+        {
+            int id;
+            try
+            {
+                _myDbContext.EmployeePersonalDetails.Add(employeePersonalDetails);
+                await _myDbContext.SaveChangesAsync();
+                return id = employeePersonalDetails.EmployeePersonalId;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"service level. {e.Message}", e);
+            }
+        }
         public async Task<int> AddEmployeeProjectAsync(EmployeeProjectDetails employeeProject)
         {
             int id;
