@@ -25,6 +25,11 @@ namespace WebAPI.Interfaces
         public Task<List<EmployeeLeavesMaster>> GetEmployeeLeavesMasterAsync(int empID);
         public Task<int> AddEmployeeLeaveDetailsAsync(EmployeeLeaveDetails employeeLeaveDetails);
         public Task<List<EmployeeLeaveDetails>> GetEmployeeLeaveDetailsAsync(int empID);
+        public Task<List<EmployeeLeaveDetails>> GetEmployeeLeaveDetailsByIdAsync(int employeeLeaveDetailsId);
+        public Task<List<EmployeeLeaveDetails>> GetPendingEmployeeLeaveDetailsForHMAsync(int homeManagerId);
+        public Task<int> UpdatetEmployeeLeaveDetailsByIdAsync(EmployeeLeaveDetails employeeLeaveDetails);
+        public Task<int> deleteEmployeeLeaveDetailsByIdAsync(EmployeeLeaveDetails employeeLeaveDetails);
+
 
     }
 }

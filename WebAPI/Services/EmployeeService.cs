@@ -328,13 +328,84 @@ namespace WebAPI.Services
         {
             try
             {
-                return await _myDbContext.EmployeeLeaveDetails.Where(x => x.EMPLOYEEID == empID).ToListAsync();
+                return await _myDbContext.EmployeeLeaveDetails.Where(x => x.EMPLOYEEID == empID && x.IsActive).ToListAsync();
             }
             catch (Exception)
             {
                 throw;
             }
-        }        
+        }
+        public async Task<List<EmployeeLeaveDetails>> GetEmployeeLeaveDetailsByIdAsync(int employeeLeaveDetailsId)
+        {
+            try
+            {
+                return await _myDbContext.EmployeeLeaveDetails.Where(x => x.EmployeeLeaveDetailsId == employeeLeaveDetailsId).ToListAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<List<EmployeeLeaveDetails>> GetPendingEmployeeLeaveDetailsForHMAsync(int homeManagerId)
+        {
+            try
+            {
+                return await (from el in _myDbContext.EmployeeLeaveDetails
+                           join ed in _myDbContext.EmployeeDetails on el.EMPLOYEEID equals ed.EMPLOYEEID
+                           where ed.HomeManagerId == homeManagerId && el.IsManagerApproves == false && el.IsActive
+                           select el).ToListAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<int> UpdatetEmployeeLeaveDetailsByIdAsync(EmployeeLeaveDetails employeeLeaveDetails)
+        {
+            try
+            {
+                var result = await _myDbContext.EmployeeLeaveDetails.Where(x => x.EmployeeLeaveDetailsId == employeeLeaveDetails.EmployeeLeaveDetailsId).FirstOrDefaultAsync();
+                if (result != null)
+                {
+                    result.StartDate = employeeLeaveDetails.StartDate;
+                    result.EndDate = employeeLeaveDetails.EndDate;
+                    result.NoOfDays = employeeLeaveDetails.NoOfDays;
+                    result.EmployeeComments = employeeLeaveDetails.EmployeeComments;
+                    result.HalfDay = employeeLeaveDetails.HalfDay;
+                    result.FullDay = employeeLeaveDetails.FullDay;
+                    result.IsManagerApproves = employeeLeaveDetails.IsManagerApproves;
+                    result.ManagerComments = employeeLeaveDetails.ManagerComments;
+                    result.IsActive = employeeLeaveDetails.IsActive;
+                    result.EMPLOYEEID = employeeLeaveDetails.EMPLOYEEID;
+                    result.LeaveTypeId = employeeLeaveDetails.LeaveTypeId;
+                    this._myDbContext.SaveChanges();                   
+                }
+                return employeeLeaveDetails.EmployeeLeaveDetailsId;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<int> deleteEmployeeLeaveDetailsByIdAsync(EmployeeLeaveDetails employeeLeaveDetails)
+        {
+            try
+            {
+                var result = await _myDbContext.EmployeeLeaveDetails.Where(x => x.EmployeeLeaveDetailsId == employeeLeaveDetails.EmployeeLeaveDetailsId).FirstOrDefaultAsync();
+                if (result != null)
+                {
+                    
+                    result.EmployeeComments = employeeLeaveDetails.EmployeeComments;                    
+                    result.IsActive = false;                   
+                    this._myDbContext.SaveChanges();
+                }
+                return employeeLeaveDetails.EmployeeLeaveDetailsId;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         #endregion
     }
 }
