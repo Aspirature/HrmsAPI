@@ -138,6 +138,30 @@ namespace WebAPI.Controllers
                 throw new Exception($"Controller level. {e.Message}", e);
             }
         }
+        [HttpGet("getEmployeeLeaveDetailsByIdAsync")]
+        public async Task<List<EmployeeLeaveDetails>> GetEmployeeLeaveDetailsByIdAsync(int employeeLeaveDetailsId)
+        {
+            try
+            {
+                return await _employeeService.GetEmployeeLeaveDetailsByIdAsync(employeeLeaveDetailsId);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Controller level. {e.Message}", e);
+            }
+        }
+        [HttpGet("getPendingEmployeeLeaveDetailsForHMAsync")]
+        public async Task<List<EmployeeLeaveDetails>> GetPendingEmployeeLeaveDetailsForHMAsync(int homeManagerId)
+        {
+            try
+            {
+                return await _employeeService.GetPendingEmployeeLeaveDetailsForHMAsync(homeManagerId);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Controller level. {e.Message}", e);
+            }
+        }
         #region Add Employee Details
 
         [HttpPost("addUserAsync")]
@@ -262,6 +286,32 @@ namespace WebAPI.Controllers
             try
             {
                 var responce = await _employeeService.AddEmployeeLeaveDetailsAsync(employeeLeaveDetails);
+                return Ok(responce);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Controller level. {e.Message}", e);
+            }
+        }
+        [HttpPost("updatetEmployeeLeaveDetailsByIdAsync")]
+        public async Task<IActionResult> UpdatetEmployeeLeaveDetailsByIdAsync(EmployeeLeaveDetails employeeLeaveDetails)
+        {
+            try
+            {
+                var responce = await _employeeService.UpdatetEmployeeLeaveDetailsByIdAsync(employeeLeaveDetails);
+                return Ok(responce);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Controller level. {e.Message}", e);
+            }
+        }
+        [HttpPost("deleteEmployeeLeaveDetailsByIdAsync")]
+        public async Task<IActionResult> deleteEmployeeLeaveDetailsByIdAsync(EmployeeLeaveDetails employeeLeaveDetails)
+        {
+            try
+            {
+                var responce = await _employeeService.deleteEmployeeLeaveDetailsByIdAsync(employeeLeaveDetails);
                 return Ok(responce);
             }
             catch (Exception e)
